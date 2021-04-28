@@ -1,0 +1,66 @@
+.book-card {
+    /*width: 18rem;*/
+    /*float: left;*/
+    height: 27rem;
+    text-align: center;
+    line-height: 3rem;
+    /*grid-area: a;*/
+}
+
+.card-img-top {
+    padding-top: 2rem;
+
+    height: 180px;
+    text-align: center
+}
+
+.book-card  .card-img-top{
+    width: 150px;
+}
+
+.img-fluid {
+    margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.card-title {
+    height: 50px;
+}
+
+.container-fluid .card-columns {
+    padding-left: 15px;
+    column-count: 4;
+
+}
+
+.nav-section {
+    border: 2px solid gray;
+    color: black;
+    background: lightgray;
+    width:10rem;
+    text-align: center;
+
+}
+
+.flex-column {
+    float: left;
+}
+
+.book-card .button{
+   padding: 2px;
+    margin: 2px;
+    width: 7rem;
+    height: 3rem;
+}
+.book-header .nav-menu {
+    padding-left: 10rem;
+}
+.flex-container {
+    display: flex;
+    /*border:1px #ccc solid;*/
+}
+.flex-end{
+    justify-content: flex-end;
+}
