@@ -39,34 +39,31 @@ public class BookServiceImpl implements BookService {
 
 
     @Override
-    public BookDTO getBookById(long id) {
-        Optional<Book> book = Optional.ofNullable(bookRepository.findByBookId(id));
-        if (!book.isPresent()) {
-            log.error("There is no such book");
-            throw new ThereIsNoSuchException("book");
-        }
-        BookDTO bookDTO = BookDTOTransformer.BOOK_DTO_TRANSFORMER.bookToBookDTO(book.get());
-        return bookDTO;
+    public BookDTO getBookById(Long id) {
+        return bookRepository.findById(id)
+                .map(BookDTOTransformer.BOOK_DTO_TRANSFORMER::bookToBookDTO)
+                .orElseThrow(() -> new ThereIsNoSuchException("book"));
     }
 
-    @Override
-    public Set<AuthorDTO> getAuthorByYear(String year) {
-        Integer yearOfIssue = Integer.valueOf(year);
-        Set<Book> bookSet = bookRepository.findBookByYearOfIssue(yearOfIssue);
-        Set<Set<Author>> bookAuthorSet = new HashSet<>();
-        for (Book book : bookSet) {
-            bookAuthorSet.add(book.getAuthor());
-        }
-
-        Set<AuthorDTO> authorDTOList = new HashSet<>();
-        for (Set<Author> authorList : bookAuthorSet) {
-            for (Author author : authorList) {
-                AuthorDTO authorDTO = AuthorDTOTransformer.AUTHOR_DTO_TRANSFORMER.authorToAuthorDTO(author);
-                authorDTOList.add(authorDTO);
-            }
-        }
-        return authorDTOList;
-    }
+//    todo rewrite HQL
+//    @Override
+//    public Set<AuthorDTO> getAuthorByYear(String year) {
+//        Integer yearOfIssue = Integer.valueOf(year);
+//        Set<Book> bookSet = bookRepository.findBookByYearOfIssue(yearOfIssue);
+//        Set<Set<Author>> bookAuthorSet = new HashSet<>();
+//        for (Book book : bookSet) {
+//            bookAuthorSet.add(book.getAuthor());
+//        }
+//
+//        Set<AuthorDTO> authorDTOList = new HashSet<>();
+//        for (Set<Author> authorList : bookAuthorSet) {
+//            for (Author author : authorList) {
+//                AuthorDTO authorDTO = AuthorDTOTransformer.AUTHOR_DTO_TRANSFORMER.authorToAuthorDTO(author);
+//                authorDTOList.add(authorDTO);
+//            }
+//        }
+//        return authorDTOList;
+//    }
 
 
     @Override
@@ -76,16 +73,15 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void deleteBook(long id) {
-        bookRepository.deleteById(String.valueOf(id));
+    public void deleteBook(Long id) {
+        bookRepository.deleteById(id);
     }
 
 
-
     @Override //change getBooksBySectionId
-    public List<BookDTO> getBooksBySection(long id) {
+    public List<BookDTO> getBooksBySection(Long id) {
         List<Book> bookList = bookRepository.findBySectionId(id);
-        log.info(bookList.size()+"");
+        log.info(bookList.size() + "");
         return bookList.isEmpty() ? new ArrayList<>() : bookList.stream()
                 .map(BookDTOTransformer.BOOK_DTO_TRANSFORMER::bookToBookDTO)
                 .collect(Collectors.toList());

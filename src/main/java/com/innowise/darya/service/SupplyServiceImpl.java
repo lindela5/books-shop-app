@@ -22,13 +22,10 @@ public class SupplyServiceImpl implements SupplyService {
 
 
     @Override
-    public SupplyDTO getSupplyById(long id) {
-        Optional<Supply> supply = Optional.ofNullable(supplyRepository.findBySupplyId(id));
-        if (!supply.isPresent()) {
-            throw new ThereIsNoSuchException("supplier");
-        }
-       SupplyDTO supplyDTO = SupplyDTOTransformer.SUPPLY_DTO_TRANSFORMER.supplyToSupplyDTO(supply.get());
-        return supplyDTO;
+    public SupplyDTO getSupplyById(Long id) {
+        return supplyRepository.findById(id)
+                .map(SupplyDTOTransformer.SUPPLY_DTO_TRANSFORMER::supplyToSupplyDTO)
+                .orElseThrow(() -> new ThereIsNoSuchException("supply"));
     }
 
     @Override
@@ -39,7 +36,7 @@ public class SupplyServiceImpl implements SupplyService {
 
     @Override
     public void deleteSupply(long supplyId) {
-        supplyRepository.deleteById(String.valueOf(supplyId));
+        supplyRepository.deleteById(supplyId);
     }
 
 }

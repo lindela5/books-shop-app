@@ -12,9 +12,9 @@ import java.util.Set;
 
 import static org.hibernate.loader.Loader.SELECT;
 
-public interface BookRepository extends JpaRepository<Book, String> {
+public interface BookRepository extends JpaRepository<Book, Long> {
 
-    Book findByBookId(Long bookId);
+//    Book findByBookId(Long bookId);
 
     Set<Book> findBookByYearOfIssue(Integer yearOfIssue);
 

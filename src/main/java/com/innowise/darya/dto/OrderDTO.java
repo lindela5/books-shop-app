@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -17,7 +17,7 @@ import java.util.Set;
 public class OrderDTO {
 
     private Long orderId;
-    private Set<BookDTO> bookOrder;// = new HashSet<>();
+    private List<BookDTO> bookOrder;// = new HashSet<>();
     private Customer customer;
     private LocalDate orderDate;
     private BigDecimal amount;

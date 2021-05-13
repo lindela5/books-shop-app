@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -18,7 +18,7 @@ public class BookDTO {
 
     private Long bookId;
     private String bookTitle;
-    private Set<AuthorDTO> bookAuthor;
+    private List<AuthorDTO> bookAuthor;
     private String isbn;
     private Section section;
     private Integer yearOfIssue;

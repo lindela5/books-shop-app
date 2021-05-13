@@ -5,7 +5,7 @@ import com.innowise.darya.dto.SupplyDTO;
 
 public interface SupplyService {
 
-    SupplyDTO getSupplyById(long id);
+    SupplyDTO getSupplyById(Long id);
 
     SupplyDTO saveSupply(SupplyDTO supplyDto);
 

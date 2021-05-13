@@ -1,10 +1,11 @@
 package com.innowise.darya.service;
 
+import com.innowise.darya.dto.SupplierDTO;
 import com.innowise.darya.entity.Supplier;
 
 
 public interface SupplierService {
 
-    Supplier getSupplierStats(Long id);
+    SupplierDTO getSupplierStats(Long id);
 
 }

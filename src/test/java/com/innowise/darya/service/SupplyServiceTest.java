@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 import static java.math.BigDecimal.TEN;
@@ -60,10 +61,10 @@ class SupplyServiceTest {
                     .price(TEN)
                     .build();
 
-    static final Set<Book> BOOK_SUPPLY = Set.of(
+    static final List<Book> BOOK_SUPPLY = List.of(
             BOOK1,
             BOOK2);
-    static final Set<BookDTO> BOOK_SUPPLY_DTO = Set.of(
+    static final List<BookDTO> BOOK_SUPPLY_DTO = List.of(
             BOOK1_DTO,
             BOOK2_DTO);
 

@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 @Transactional
 @Slf4j
-public class CustomerServiceImpl implements CustomerService{
+public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
 
@@ -23,13 +23,9 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     public CustomerDTO getCustomerStats(Long customerId) {
-        Optional<Customer> customer =  Optional.ofNullable(customerRepository.findByCustomerId(customerId));
-        if (!customer.isPresent()) {
-            log.error("There is no such customer");
-            throw new ThereIsNoSuchException("customer");
-        }
-        CustomerDTO customerDTO = CustomerDTOTransformer.CUSTOMER_DTO_TRANSFORMER.customerToCustomerDTO(customer.get());
-        return customerDTO;
+        return customerRepository.findById(customerId)
+                .map(CustomerDTOTransformer.CUSTOMER_DTO_TRANSFORMER::customerToCustomerDTO)
+                .orElseThrow(() -> new ThereIsNoSuchException("customer"));
     }
 }
 

@@ -7,14 +7,18 @@ import com.innowise.darya.repositoty.SectionRepository;
 import com.innowise.darya.transformer.SectionDTOTransformer;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+//import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class SectionServiceImpl implements SectionService{
+public class SectionServiceImpl implements SectionService {
 
     private SectionRepository sectionRepository;
 
@@ -24,26 +28,18 @@ public class SectionServiceImpl implements SectionService{
 
     @Override
     public SectionDTO getSectionStats(Long sectionId) {
-        Optional<Section> section = Optional.ofNullable(sectionRepository.findById(sectionId));
-        if (!section.isPresent()) {
-            throw new ThereIsNoSuchException("section");
-        }
-        SectionDTO sectionDTO = SectionDTOTransformer.SECTION_DTO_TRANSFORMER.sectionToSectionDTO(section.get());
-        return sectionDTO;
+        return sectionRepository.findById(sectionId)
+                .map(SectionDTOTransformer.SECTION_DTO_TRANSFORMER::sectionToSectionDTO)
+                .orElseThrow(() -> new ThereIsNoSuchException("section"));
     }
 
 
-
-
-
     @Override
+    @Transactional(readOnly = true)
     public List<SectionDTO> getAllSection() {
-        List<SectionDTO> sectionDTOList = new ArrayList<>();
-        List<Section> sectionList = sectionRepository.findAll();
-        for (Section section : sectionList) {
-            sectionDTOList.add(SectionDTOTransformer.SECTION_DTO_TRANSFORMER.sectionToSectionDTO(section));
-        }
-        return sectionDTOList;
+        return sectionRepository.findAllSections()
+                .map(SectionDTOTransformer.SECTION_DTO_TRANSFORMER::sectionToSectionDTO)
+                .collect(Collectors.toList());
     }
 
 

@@ -6,8 +6,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Table(name = "orders")
@@ -15,15 +16,16 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
 public class Order {
     @Id
     private Long orderId;
 
     @ManyToMany
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @JoinTable(name = "book_order", joinColumns = @JoinColumn(name = "orderId"),
             inverseJoinColumns = @JoinColumn(name = "bookId"))
-    private Set<Book> bookOrder = new HashSet<>();
+    private List<Book> bookOrder = new ArrayList<>();
 
     @NotBlank
     @ManyToOne(cascade = CascadeType.ALL)

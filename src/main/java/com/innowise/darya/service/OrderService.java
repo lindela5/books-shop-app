@@ -6,11 +6,11 @@ import com.innowise.darya.dto.OrderDTO;
 public interface OrderService {
 
 
-    OrderDTO getOrderById(long id);
+    OrderDTO getOrderById(Long id);
 
     OrderDTO saveOrder(OrderDTO orderDto);
 
-    void deleteOrder(long oderId);
+    void deleteOrder(Long oderId);
 
 
 }

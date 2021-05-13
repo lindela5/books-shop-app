@@ -15,7 +15,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
+import java.util.Optional;
 
 import static java.math.BigDecimal.TEN;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -60,10 +61,10 @@ class OrderServiceTest {
                     .price(TEN)
                     .build();
 
-    static final Set<Book> BOOK_ORDER = Set.of(
+    static final List<Book> BOOK_ORDER = List.of(
             BOOK1,
             BOOK2);
-    static final Set<BookDTO> BOOK_ORDER_DTO = Set.of(
+    static final List<BookDTO> BOOK_ORDER_DTO = List.of(
             BOOK1_DTO,
             BOOK2_DTO);
 
@@ -114,18 +115,18 @@ class OrderServiceTest {
 
     @Test
     public void shouldThrowOrderThereIsNoSuchException() {
-        given(orderRepository.findByOrderId(WRONG_ID)).willReturn(null);
+        given(orderRepository.findById(WRONG_ID)).willReturn(null);
         assertThrows(ThereIsNoSuchException.class, () -> orderService.getOrderById(WRONG_ID));
-        then(orderRepository).should(only()).findByOrderId(WRONG_ID);
+        then(orderRepository).should(only()).findById(WRONG_ID);
 
     }
 
     @Test
     public void shouldReturnOrderById() {
-        given(orderRepository.findByOrderId(ID)).willReturn(ORDER);
+        given(orderRepository.findById(ID)).willReturn(Optional.ofNullable(ORDER));
         OrderDTO actual = orderService.getOrderById(ID);
         assertEquals(ORDER_DTO, actual);
-        then(orderRepository).should(only()).findByOrderId(ID);
+        then(orderRepository).should(only()).findById(ID);
 
     }
 

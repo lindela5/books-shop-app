@@ -24,18 +24,19 @@ public class SupplyController {
         return supplyService.getSupplyById(id);
     }
 
+    //todo saveandflush
     @PostMapping("/save")
     public SupplyDTO saveSupply(@RequestBody SupplyDTO supplyDto) {
         log.info("Handling save users: " + supplyDto);
         return supplyService.saveSupply(supplyDto);
     }
 
+    //status
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteSupply(@PathVariable String id) {
+    public void deleteSupply(@PathVariable String id) {
         log.info("Handling delete user request: " + id);
         supplyService.deleteSupply(Long.valueOf(id));
-        return ResponseEntity.ok().build();
-    }
+         }
 
 
 }

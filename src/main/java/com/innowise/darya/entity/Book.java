@@ -5,13 +5,12 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "books")
 @Data
-@EqualsAndHashCode(exclude = "author")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(builderMethodName = "aBook")
@@ -23,10 +22,12 @@ public class Book {
     private String title;
 
     @NotBlank
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "bookId"),
             inverseJoinColumns = @JoinColumn(name = "authorId"))
-    private Set<Author> author = new HashSet<>();
+    private List<Author> author = new ArrayList<>();
 
     private String isbn;
 
@@ -45,26 +46,6 @@ public class Book {
     private BigDecimal price;
     private Integer stockBalances;
     private String picture;
-
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(bookId, title, isbn, section, yearOfIssue, publishingHouse, price, stockBalances, picture);
-//    }
-
-    @Override
-    public String toString() {
-        return "Book{" +
-                "bookId=" + bookId +
-                ", title='" + title + '\'' +
-                ", isbn='" + isbn + '\'' +
-                ", section=" + section +
-                ", yearOfIssue=" + yearOfIssue +
-                ", publishingHouse=" + publishingHouse +
-                ", price=" + price +
-                ", stockBalances=" + stockBalances +
-                ", picture='" + picture + '\'' +
-                '}';
-    }
 
 
 }

@@ -6,8 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "author")
@@ -25,23 +25,11 @@ public class Author {
     private String lastName;
     private String country;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToMany(mappedBy = "author")
-    private Set<Book> books = new HashSet<>();
+    private List<Book> books = new ArrayList<>();
 
 
 
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(authorId, firstName, lastName, country);
-//    }
-
-    @Override
-    public String toString() {
-        return "Author{" +
-                "authorId=" + authorId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", country='" + country + '\'' +
-                '}';
-    }
 }

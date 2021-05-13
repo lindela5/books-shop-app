@@ -1,9 +1,9 @@
 package com.innowise.darya.service;
 
-import com.innowise.darya.entity.PublishingHouse;
+import com.innowise.darya.dto.PublishingHouseDTO;
 
 
 public interface PublishingHouseService {
 
-    PublishingHouse getPublisherStats(Long publishingHouseId);
+    PublishingHouseDTO getPublisherStats(Long publishingHouseId);
 }

@@ -13,7 +13,6 @@ import java.util.Optional;
 
 @Service
 @Transactional
-@Slf4j
 public class AuthorServiceImpl implements AuthorService {
 
     private AuthorRepository authorRepository;
@@ -24,14 +23,10 @@ public class AuthorServiceImpl implements AuthorService {
 
 
     @Override
-    public AuthorDTO getAuthorById(long id) {
-        Optional<Author> author = Optional.ofNullable(authorRepository.findByAuthorId(id));
-        if (!author.isPresent()) {
-            log.error("There is no such author");
-            throw new ThereIsNoSuchException("author");
-        }
-        AuthorDTO authorDTO = AuthorDTOTransformer.AUTHOR_DTO_TRANSFORMER.authorToAuthorDTO(author.get());
-        return authorDTO;
+    public AuthorDTO getAuthorById(Long id) {
+        return authorRepository.findById(id)
+                .map(AuthorDTOTransformer.AUTHOR_DTO_TRANSFORMER::authorToAuthorDTO)
+                .orElseThrow(() -> new ThereIsNoSuchException("author"));
     }
 
     @Override
@@ -41,7 +36,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public void deleteAuthor(long authorId) {
+    public void deleteAuthor(Long authorId) {
         authorRepository.deleteById(authorId);
     }
 }

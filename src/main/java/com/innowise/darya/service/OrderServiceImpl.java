@@ -16,20 +16,16 @@ public class OrderServiceImpl implements OrderService {
 
     private OrderRepository orderRepository;
 
-    public OrderServiceImpl(OrderRepository orderRepository) { this.orderRepository = orderRepository;
+    public OrderServiceImpl(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
     }
 
 
-
     @Override
-    public OrderDTO getOrderById(long id) {
-        Optional<Order> order = Optional.ofNullable(orderRepository.findByOrderId(id));
-        if (!order.isPresent()) {
-            throw new ThereIsNoSuchException("customer");
-        }
-
-        OrderDTO orderDTO = OrderDTOTransformer.ORDER_DTO_TRANSFORMER.orderToOrderDTO(order.get());
-        return orderDTO;
+    public OrderDTO getOrderById(Long id) {
+        return orderRepository.findById(id)
+                .map(OrderDTOTransformer.ORDER_DTO_TRANSFORMER::orderToOrderDTO)
+                .orElseThrow(() -> new ThereIsNoSuchException("order"));
     }
 
     @Override
@@ -39,7 +35,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void deleteOrder(long orderId) {
-        orderRepository.deleteById(String.valueOf(orderId));
+    public void deleteOrder(Long orderId) {
+        orderRepository.deleteById(orderId);
     }
 }

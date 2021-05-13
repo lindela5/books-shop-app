@@ -38,9 +38,9 @@ public class AuthorController {
 
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasAuthority('developers:read')")
-    public ResponseEntity<Void> deleteAuthor(@PathVariable String id) {
+    public ResponseEntity<Void> deleteAuthor(@PathVariable Long id) {
         log.info("Handling delete user request: " + id);
-        authorService.deleteAuthor(Long.valueOf(id));
+        authorService.deleteAuthor(id);
         return ResponseEntity.ok().build();
     }
 }

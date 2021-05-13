@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -17,7 +17,7 @@ import java.util.Set;
 public class SupplyDTO {
 
     private Long supplyId;
-    private Set<BookDTO> bookSupply;
+    private List<BookDTO> bookSupply;
     private Supplier supplier;
     private LocalDate supplyDate;
     private BigDecimal supplierPrice;
