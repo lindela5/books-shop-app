@@ -25,7 +25,7 @@ public class CustomerController {
 
     @GetMapping("/getbyid/{id}")
     @PreAuthorize("hasAuthority('developers:write')")
-    public CustomerDTO getCustomerStats(@PathVariable long id) {
+    public CustomerDTO getCustomerStats(@PathVariable Long id) {
         log.info("Handling find by id request: " + id);
         return customerService.getCustomerStats(id);
     }

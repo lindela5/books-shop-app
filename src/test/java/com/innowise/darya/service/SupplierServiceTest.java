@@ -10,6 +10,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
@@ -65,9 +67,9 @@ class SupplierServiceTest {
 
     @Test
     public void shouldReturnSupplierStat() {
-        given(supplierRepository.findById(ID)).willReturn(SUPPLIER);
-        Supplier actual = supplierService.getSupplierStats(ID);
-        assertEquals(SUPPLIER, actual);
+        given(supplierRepository.findById(ID)).willReturn(Optional.ofNullable(SUPPLIER));
+        SupplierDTO actual = supplierService.getSupplierStats(ID);
+        assertEquals(SUPPLIER_DTO, actual);
         then(supplierRepository).should(only()).findById(ID);
 
     }

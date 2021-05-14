@@ -16,13 +16,13 @@ public interface BookService {
 
     BookDTO getBookById(Long id);
 
-//    Set<AuthorDTO> getAuthorByYear(String year);
+    List<AuthorDTO> getAuthorByYear(String year);
 
     BookDTO saveBook(BookDTO bookDto);
 
     void deleteBook(Long bookId);
 
-        List<BookDTO> getBooksBySection(Long id);
+    List<BookDTO> getBooksBySection(Long id);
 
 }
 

@@ -72,7 +72,7 @@ public class BookController {
 
     @GetMapping("/getbyid")
     @PreAuthorize("hasAuthority('developers:write')")
-    public BookDTO getBookById(@RequestParam long id) {
+    public BookDTO getBookById(@RequestParam Long id) {
         log.info("Handling find by id request: " + id);
         return bookService.getBookById(id);
     }
@@ -81,7 +81,7 @@ public class BookController {
     //найти всех авторов, которые издавались в этот год
     @GetMapping("/getauthorbyyear/{year}")
     @PreAuthorize("permitAll()")
-    public Set<AuthorDTO> getAuthorByYear(@RequestParam String year) {
+    public List<AuthorDTO> getAuthorByYear(@RequestParam String year) {
         return bookService.getAuthorByYear(year);
     }
 
@@ -89,16 +89,15 @@ public class BookController {
 
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasAuthority('developers:read')")
-    public ResponseEntity<Void> deleteBook(@PathVariable String id) {
+    public void deleteBook(@PathVariable Long id) {
         log.info("Handling delete user request: " + id);
-        bookService.deleteBook(Long.valueOf(id));
-        return ResponseEntity.ok().build();
-    }
+        bookService.deleteBook(id);
+      }
 
     //в каких секциях лежат книги
     @GetMapping("/getbysection/{section}")
     @PreAuthorize("permitAll()")
-    public List<BookDTO> getBooksBySection(@PathVariable long section){
+    public List<BookDTO> getBooksBySection(@PathVariable Long section){
         return bookService.getBooksBySection(section);
     }
 

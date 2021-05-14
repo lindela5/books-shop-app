@@ -20,11 +20,10 @@ public class SupplyController {
 
 
     @GetMapping("/getbyid/{id}")
-    public SupplyDTO getSupplyById(@PathVariable long id){
+    public SupplyDTO getSupplyById(@PathVariable Long id){
         return supplyService.getSupplyById(id);
     }
 
-    //todo saveandflush
     @PostMapping("/save")
     public SupplyDTO saveSupply(@RequestBody SupplyDTO supplyDto) {
         log.info("Handling save users: " + supplyDto);
@@ -33,9 +32,9 @@ public class SupplyController {
 
     //status
     @DeleteMapping("/delete/{id}")
-    public void deleteSupply(@PathVariable String id) {
+    public void deleteSupply(@PathVariable Long id) {
         log.info("Handling delete user request: " + id);
-        supplyService.deleteSupply(Long.valueOf(id));
+        supplyService.deleteSupply(id);
          }
 
 

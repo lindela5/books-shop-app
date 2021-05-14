@@ -24,7 +24,7 @@ public class AuthorController {
 
     @GetMapping("/getbyid/{id}")
     @PreAuthorize("hasAuthority('developers:write')")
-    public AuthorDTO getAuthorById(@PathVariable long id){
+    public AuthorDTO getAuthorById(@PathVariable Long id){
         return authorService.getAuthorById(id);
     }
 
@@ -38,9 +38,8 @@ public class AuthorController {
 
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasAuthority('developers:read')")
-    public ResponseEntity<Void> deleteAuthor(@PathVariable Long id) {
+    public void deleteAuthor(@PathVariable Long id) {
         log.info("Handling delete user request: " + id);
         authorService.deleteAuthor(id);
-        return ResponseEntity.ok().build();
-    }
+     }
 }

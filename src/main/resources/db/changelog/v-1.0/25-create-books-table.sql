@@ -3,7 +3,7 @@ CREATE TABLE books (
     title  VARCHAR(100) NOT NULL,
     isbn   VARCHAR(100),
     section_id int NOT NULL,
-    year_of_issue int ,
+    issue_year int ,
     publishing_house_id int NOT NULL,
     price     DECIMAL,
     stock_balances int,

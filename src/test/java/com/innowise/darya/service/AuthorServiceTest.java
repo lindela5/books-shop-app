@@ -10,6 +10,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
@@ -57,19 +59,19 @@ class AuthorServiceTest {
 
     @Test
     public void shouldThrowAuthorThereIsNoSuchException() {
-        given(authorRepository.findByAuthorId(WRONG_ID)).willReturn(null);
+        given(authorRepository.findById(WRONG_ID)).willReturn(null);
         assertThrows(ThereIsNoSuchException.class, () -> authorService.getAuthorById(WRONG_ID));
-        then(authorRepository).should(only()).findByAuthorId(WRONG_ID);
+        then(authorRepository).should(only()).findById(WRONG_ID);
 
     }
 
 
     @Test
     public void shouldReturnAuthorById() {
-        given(authorRepository.findByAuthorId(ID)).willReturn(AUTHOR);
+        given(authorRepository.findById(ID)).willReturn(Optional.ofNullable(AUTHOR));
         AuthorDTO actual = authorService.getAuthorById(ID);
         assertEquals(AUTHOR_DTO, actual);
-        then(authorRepository).should(only()).findByAuthorId(ID);
+        then(authorRepository).should(only()).findById(ID);
 
     }
 

@@ -11,9 +11,11 @@ import com.innowise.darya.transformer.BookDTOTransformer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static java.util.Optional.ofNullable;
 
 @Service
 @Transactional
@@ -45,30 +47,19 @@ public class BookServiceImpl implements BookService {
                 .orElseThrow(() -> new ThereIsNoSuchException("book"));
     }
 
-//    todo rewrite HQL
-//    @Override
-//    public Set<AuthorDTO> getAuthorByYear(String year) {
-//        Integer yearOfIssue = Integer.valueOf(year);
-//        Set<Book> bookSet = bookRepository.findBookByYearOfIssue(yearOfIssue);
-//        Set<Set<Author>> bookAuthorSet = new HashSet<>();
-//        for (Book book : bookSet) {
-//            bookAuthorSet.add(book.getAuthor());
-//        }
-//
-//        Set<AuthorDTO> authorDTOList = new HashSet<>();
-//        for (Set<Author> authorList : bookAuthorSet) {
-//            for (Author author : authorList) {
-//                AuthorDTO authorDTO = AuthorDTOTransformer.AUTHOR_DTO_TRANSFORMER.authorToAuthorDTO(author);
-//                authorDTOList.add(authorDTO);
-//            }
-//        }
-//        return authorDTOList;
-//    }
-
+    @Override
+    public List<AuthorDTO> getAuthorByYear(String year) {
+        return Optional.ofNullable(bookRepository.findAuthorsByYear(year))
+                .map(Collection::stream)
+                .orElseThrow(() -> new ThereIsNoSuchException("author"))
+                .map(AuthorDTOTransformer.AUTHOR_DTO_TRANSFORMER::authorToAuthorDTO)
+                .collect(Collectors.toList());
+    }
 
     @Override
     public BookDTO saveBook(BookDTO bookDto) {
-        Book savedBook = bookRepository.save(BookDTOTransformer.BOOK_DTO_TRANSFORMER.bookDTOToBook(bookDto));
+        Book savedBook = bookRepository.saveAndFlush(BookDTOTransformer
+                .BOOK_DTO_TRANSFORMER.bookDTOToBook(bookDto));
         return BookDTOTransformer.BOOK_DTO_TRANSFORMER.bookToBookDTO(savedBook);
     }
 
@@ -78,13 +69,12 @@ public class BookServiceImpl implements BookService {
     }
 
 
-    @Override //change getBooksBySectionId
+    @Override
+    @Transactional(readOnly = true)
     public List<BookDTO> getBooksBySection(Long id) {
-        List<Book> bookList = bookRepository.findBySectionId(id);
-        log.info(bookList.size() + "");
-        return bookList.isEmpty() ? new ArrayList<>() : bookList.stream()
+        return bookRepository.findBySectionId(id).stream()
                 .map(BookDTOTransformer.BOOK_DTO_TRANSFORMER::bookToBookDTO)
                 .collect(Collectors.toList());
-
     }
+
 }

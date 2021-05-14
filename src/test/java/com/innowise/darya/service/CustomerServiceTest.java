@@ -10,6 +10,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
@@ -62,19 +64,19 @@ class CustomerServiceTest {
 
     @Test
     public void shouldThrowCustomerException() {
-        given(customerRepository.findByCustomerId(WRONG_ID)).willReturn(null);
+        given(customerRepository.findById(WRONG_ID)).willReturn(null);
         assertThrows(ThereIsNoSuchException.class, () -> customerService.getCustomerStats(WRONG_ID));
-        then(customerRepository).should(only()).findByCustomerId(WRONG_ID);
+        then(customerRepository).should(only()).findById(WRONG_ID);
 
     }
 
 
     @Test
     public void shouldReturnCustomerStat() {
-        given(customerRepository.findByCustomerId(ID)).willReturn(CUSTOMER);
+        given(customerRepository.findById(ID)).willReturn(Optional.ofNullable(CUSTOMER));
         CustomerDTO actual = customerService.getCustomerStats(ID);
         assertEquals(CUSTOMER_DTO, actual);
-        then(customerRepository).should(only()).findByCustomerId(ID);
+        then(customerRepository).should(only()).findById(ID);
 
     }
 

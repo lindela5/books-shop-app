@@ -10,6 +10,7 @@ import org.mapstruct.factory.Mappers;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 import static java.math.BigDecimal.TEN;
@@ -44,10 +45,10 @@ class OrderDTOTransformerTest {
                     .price(TEN)
                     .build();
 
-    static final Set<Book> BOOK_ORDER = Set.of(
+    static final List<Book> BOOK_ORDER = List.of(
             BOOK1,
             BOOK2);
-    static final Set<BookDTO> BOOK_ORDER_DTO = Set.of(
+    static final List<BookDTO> BOOK_ORDER_DTO = List.of(
             BOOK1_DTO,
             BOOK2_DTO);
 

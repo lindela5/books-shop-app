@@ -23,7 +23,7 @@ public class OrderController {
 
         @GetMapping("/getbyid/{id}")
         @PreAuthorize("hasAuthority('developers:write')")
-         public OrderDTO getOrderById(@PathVariable long id) {
+         public OrderDTO getOrderById(@PathVariable Long id) {
         log.info("Handling find by id request: " + id);
         return orderService.getOrderById(id);
     }
@@ -35,10 +35,9 @@ public class OrderController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteOrder(@PathVariable String id) {
+    public void deleteOrder(@PathVariable Long id) {
         log.info("Handling delete user request: " + id);
-        orderService.deleteOrder(Long.valueOf(id));
-        return ResponseEntity.ok().build();
+        orderService.deleteOrder(id);
     }
 
 }

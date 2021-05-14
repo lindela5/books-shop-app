@@ -21,7 +21,7 @@ public class BookDTO {
     private List<AuthorDTO> bookAuthor;
     private String isbn;
     private Section section;
-    private Integer yearOfIssue;
+    private Integer issueYear;
     private PublishingHouse publishingHouse;
     private BigDecimal price;
     private Integer stockBalances;

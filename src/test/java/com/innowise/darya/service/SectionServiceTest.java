@@ -10,6 +10,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
@@ -58,7 +60,7 @@ class SectionServiceTest {
 
     @Test
     public void shouldReturnSectionStat() {
-        given(sectionRepository.findById(ID)).willReturn(SECTION);
+        given(sectionRepository.findById(ID)).willReturn(Optional.ofNullable(SECTION));
         SectionDTO actual = sectionService.getSectionStats(ID);
         assertEquals(SECTION_DTO, actual);
         then(sectionRepository).should(only()).findById(ID);

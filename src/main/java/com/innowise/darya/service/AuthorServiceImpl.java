@@ -31,7 +31,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public AuthorDTO saveAuthor(AuthorDTO authorDto) {
-        Author savedAuthor = authorRepository.save(AuthorDTOTransformer.AUTHOR_DTO_TRANSFORMER.authorDTOToAuthor(authorDto));
+        Author savedAuthor = authorRepository.saveAndFlush(AuthorDTOTransformer.AUTHOR_DTO_TRANSFORMER.authorDTOToAuthor(authorDto));
         return AuthorDTOTransformer.AUTHOR_DTO_TRANSFORMER.authorToAuthorDTO(savedAuthor);
     }
 

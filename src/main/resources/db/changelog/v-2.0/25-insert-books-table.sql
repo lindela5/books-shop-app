@@ -2,7 +2,7 @@
 --changeset sinitsa:02-insert-books-table
 
 
-INSERT INTO books (book_id, title, isbn, section_id, year_of_issue,publishing_house_id,price,stock_balances) VALUES
+INSERT INTO books (book_id, title, isbn, section_id, issue_year,publishing_house_id,price,stock_balances) VALUES
     (1, 'The Adventures of Sherlock Holmes', '9780241347782', 1, 2018, 1, 23, 2),
     (2, 'Good Omens', '9781910281918', 7, 2015, 2, 23.16, 1),
     (3, 'The Lord of the Rings', '9780553714777', 2, 2015, 4, 43.5, 1),

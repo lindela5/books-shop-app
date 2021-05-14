@@ -18,7 +18,7 @@ public interface BookDTOTransformer {
             @Mapping(target = "bookAuthor", source = "entity.author"),
             @Mapping(target = "isbn", source = "entity.isbn"),
             @Mapping(target = "section", source = "entity.section"),
-            @Mapping(target = "yearOfIssue", source = "entity.yearOfIssue"),
+            @Mapping(target = "issueYear", source = "entity.issueYear"),
             @Mapping(target = "publishingHouse", source = "entity.publishingHouse"),
             @Mapping(target = "price", source = "entity.price"),
             @Mapping(target = "stockBalances", source = "entity.stockBalances"),

@@ -30,12 +30,12 @@ public class SupplyServiceImpl implements SupplyService {
 
     @Override
     public SupplyDTO saveSupply(SupplyDTO supplyDto) {
-        Supply savedSupply = supplyRepository.save(SupplyDTOTransformer.SUPPLY_DTO_TRANSFORMER.supplyDTOToSupply(supplyDto));
+        Supply savedSupply = supplyRepository.saveAndFlush(SupplyDTOTransformer.SUPPLY_DTO_TRANSFORMER.supplyDTOToSupply(supplyDto));
         return SupplyDTOTransformer.SUPPLY_DTO_TRANSFORMER.supplyToSupplyDTO(savedSupply);
     }
 
     @Override
-    public void deleteSupply(long supplyId) {
+    public void deleteSupply(Long supplyId) {
         supplyRepository.deleteById(supplyId);
     }
 

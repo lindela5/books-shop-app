@@ -29,7 +29,7 @@ public class SectionController {
     }
 
     @GetMapping("/getbyid/{id}")
-    public SectionDTO getCustomerStats(@PathVariable long id) {
+    public SectionDTO getCustomerStats(@PathVariable Long id) {
         log.info("Handling find by id request: " + id);
         return sectionService.getSectionStats(id);
     }

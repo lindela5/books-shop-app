@@ -36,7 +36,7 @@ public class Book {
     @JoinColumn(name = "section_id")
     private Section section;
 
-    private Integer yearOfIssue;
+    private Integer issueYear;
 
     @NotBlank
     @ManyToOne(cascade = CascadeType.ALL)

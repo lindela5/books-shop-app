@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Set;
 
 import static com.innowise.darya.entity.Book.aBook;
@@ -42,11 +43,11 @@ class BookDTOTransformerTest {
                     .authorId(AUTHOR2_ID)
                     .build();
 
-    static final Set<Author> AUTHOR_BOOK = Set.of(
+    static final List<Author> AUTHOR_BOOK = List.of(
             AUTHOR1,
             AUTHOR2);
 
-    static final Set<AuthorDTO> AUTHOR_BOOK_DTO = Set.of(
+    static final List<AuthorDTO> AUTHOR_BOOK_DTO = List.of(
             AUTHOR1_DTO,
             AUTHOR2_DTO);
 
@@ -59,7 +60,7 @@ class BookDTOTransformerTest {
             .nameSection(NAME_SECTION)
             .build();
 
-    static final Integer YEAR_OF_ISSUE = Integer.valueOf("2015");
+    static final Integer ISSUE_YEAR = Integer.valueOf("2015");
 
     static final Long PUBLISHER_ID = 8L;
     static final String NAME_PUBLISHER = "Mystery";
@@ -80,7 +81,7 @@ class BookDTOTransformerTest {
                     .bookAuthor(AUTHOR_BOOK_DTO)
                     .isbn(ISBN)
                     .section(SECTION)
-                    .yearOfIssue(YEAR_OF_ISSUE)
+                    .issueYear(ISSUE_YEAR)
                     .publishingHouse(PUBLISHING_HOUSE)
                     .price(PRICE)
                     .stockBalances(STOCK_BALANCES)
@@ -93,7 +94,7 @@ class BookDTOTransformerTest {
                     .author(AUTHOR_BOOK)
                     .isbn(ISBN)
                     .section(SECTION)
-                    .yearOfIssue(YEAR_OF_ISSUE)
+                    .issueYear(ISSUE_YEAR)
                     .publishingHouse(PUBLISHING_HOUSE)
                     .price(PRICE)
                     .stockBalances(STOCK_BALANCES)

@@ -30,7 +30,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDTO saveOrder(OrderDTO orderDto) {
-        Order savedOrder = orderRepository.save(OrderDTOTransformer.ORDER_DTO_TRANSFORMER.orderDTOToOrder(orderDto));
+        Order savedOrder = orderRepository.saveAndFlush(OrderDTOTransformer.ORDER_DTO_TRANSFORMER.orderDTOToOrder(orderDto));
         return OrderDTOTransformer.ORDER_DTO_TRANSFORMER.orderToOrderDTO(savedOrder);
     }
 

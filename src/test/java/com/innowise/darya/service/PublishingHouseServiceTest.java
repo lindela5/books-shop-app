@@ -10,6 +10,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
@@ -53,18 +55,18 @@ class PublishingHouseServiceTest {
 
     @Test
     public void shouldThrowPublishingHouseException() {
-        given(publishingHouseRepository.findByPublishingHouseId(WRONG_ID)).willReturn(null);
+        given(publishingHouseRepository.findById(WRONG_ID)).willReturn(null);
         assertThrows(ThereIsNoSuchException.class, () -> publishingHouseService.getPublisherStats(WRONG_ID));
-        then(publishingHouseRepository).should(only()).findByPublishingHouseId(WRONG_ID);
+        then(publishingHouseRepository).should(only()).findById(WRONG_ID);
 
     }
 
     @Test
     public void shouldReturnPublishingHouseStat() {
-        given(publishingHouseRepository.findByPublishingHouseId(ID)).willReturn(PUBLISHING_HOUSE);
-        PublishingHouse actual = publishingHouseService.getPublisherStats(ID);
-        assertEquals(PUBLISHING_HOUSE, actual);
-        then(publishingHouseRepository).should(only()).findByPublishingHouseId(ID);
+        given(publishingHouseRepository.findById(ID)).willReturn(Optional.ofNullable(PUBLISHING_HOUSE));
+        PublishingHouseDTO actual = publishingHouseService.getPublisherStats(ID);
+        assertEquals(PUBLISHING_HOUSE_DTO, actual);
+        then(publishingHouseRepository).should(only()).findById(ID);
 
     }
 

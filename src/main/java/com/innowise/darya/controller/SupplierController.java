@@ -27,7 +27,7 @@ public class SupplierController {
 
 
     @GetMapping("/getbyid/{id}")
-    public SupplierDTO getSupplierStats(@PathVariable long id) {
+    public SupplierDTO getSupplierStats(@PathVariable Long id) {
         log.info("Handling find by id request: " + id);
         return supplierService.getSupplierStats(id);
     }

@@ -16,6 +16,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import static com.innowise.darya.entity.Book.aBook;
@@ -63,11 +65,11 @@ class BookServiceTest {
                     .authorId(AUTHOR2_ID)
                     .build();
 
-    static final Set<Author> AUTHOR_BOOK = Set.of(
+    static final List<Author> AUTHOR_BOOK = List.of(
             AUTHOR1,
             AUTHOR2);
 
-    static final Set<AuthorDTO> AUTHOR_BOOK_DTO = Set.of(
+    static final List<AuthorDTO> AUTHOR_BOOK_DTO = List.of(
             AUTHOR1_DTO,
             AUTHOR2_DTO);
 
@@ -80,7 +82,7 @@ class BookServiceTest {
             .nameSection(NAME_SECTION)
             .build();
 
-    static final Integer YEAR_OF_ISSUE = Integer.valueOf("2015");
+    static final Integer ISSUE_YEAR = Integer.valueOf("2015");
 
     static final Long PUBLISHER_ID = 8L;
     static final String NAME_PUBLISHER = "Mystery";
@@ -102,7 +104,7 @@ class BookServiceTest {
                     .bookAuthor(AUTHOR_BOOK_DTO)
                     .isbn(ISBN)
                     .section(SECTION)
-                    .yearOfIssue(YEAR_OF_ISSUE)
+                    .issueYear(ISSUE_YEAR)
                     .publishingHouse(PUBLISHING_HOUSE)
                     .price(PRICE)
                     .stockBalances(STOCK_BALANCES)
@@ -115,7 +117,7 @@ class BookServiceTest {
                     .author(AUTHOR_BOOK)
                     .isbn(ISBN)
                     .section(SECTION)
-                    .yearOfIssue(YEAR_OF_ISSUE)
+                    .issueYear(ISSUE_YEAR)
                     .publishingHouse(PUBLISHING_HOUSE)
                     .price(PRICE)
                     .stockBalances(STOCK_BALANCES)
@@ -129,18 +131,18 @@ class BookServiceTest {
 
     @Test
     public void shouldThrowBookThereIsNoSuchException() {
-        given(bookRepository.findByBookId(WRONG_ID)).willReturn(null);
+        given(bookRepository.findById(WRONG_ID)).willReturn(null);
         assertThrows(ThereIsNoSuchException.class, () -> bookService.getBookById(WRONG_ID));
-        then(bookRepository).should(only()).findByBookId(WRONG_ID);
+        then(bookRepository).should(only()).findById(WRONG_ID);
 
     }
 
     @Test
     public void shouldReturnBookById() {
-        given(bookRepository.findByBookId(ID)).willReturn(BOOK);
+        given(bookRepository.findById(ID)).willReturn(Optional.ofNullable(BOOK));
         BookDTO actual = bookService.getBookById(ID);
         assertEquals(BOOKDTO, actual);
-        then(bookRepository).should(only()).findByBookId(ID);
+        then(bookRepository).should(only()).findById(ID);
         verifyNoMoreInteractions(bookRepository);
     }
 

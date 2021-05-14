@@ -9,6 +9,6 @@ public interface SupplyService {
 
     SupplyDTO saveSupply(SupplyDTO supplyDto);
 
-    void deleteSupply(long supplyId);
+    void deleteSupply(Long supplyId);
 
 }
